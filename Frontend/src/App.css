@@ -1,0 +1,113 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root{
+  height: 100%;
+  width: 100%;
+}
+
+main{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+/* LEFT + RIGHT */
+main .left,
+main .right{
+  flex: 1;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* LEFT PANEL */
+main .left{
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Top header */
+.left .top{
+  padding: 1.2rem;
+  border-bottom: 1px solid #222;
+}
+
+.left .top h2{
+  color: white;
+  margin-bottom: 0.3rem;
+}
+
+.left .top p{
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+/* Editor container */
+.editor-container{
+  flex: 1;
+  overflow: auto;
+}
+
+/* Remove border & fix full height */
+.editor-container textarea,
+.editor-container pre,
+.editor-container code{
+  min-height: 100%;
+  border: none !important;
+  outline: none !important;
+}
+
+/* REVIEW BUTTON FIXED */
+.review{
+  position: absolute;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  background-color: rgb(219, 219, 255);
+  color: black;
+  padding: 0.6rem 1.6rem;
+  border-radius: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s ease;
+}
+
+.review:hover{
+  transform: scale(1.05);
+}
+
+.review.active{
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* RIGHT PANEL */
+main .right{
+  background-color: #1e1e1e;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.right h2{
+  color: white;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.5rem;
+}
+
+/* AI Output Area */
+.review-output{
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  color: #e6e6e6;
+  line-height: 1.6;
+}
