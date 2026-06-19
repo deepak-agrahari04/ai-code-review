@@ -23,9 +23,9 @@ function App() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:3000/ai/get-review",
-        { code }
-      );
+  `${import.meta.env.VITE_API_URL}/ai/get-review`,
+  { code }
+);
 
       setReview(response.data);
     } catch (error) {
@@ -36,54 +36,61 @@ function App() {
   };
 
   return (
-    <main>
-      {/* LEFT SIDE */}
-      <div className="left">
+  <main>
 
-        <div className="top">
-          <h2>Code Submission</h2>
-          <p>Write your code and click Review.</p>
-        </div>
+    {/* LEFT SIDE */}
+    <div className="left">
 
-        <div className="editor-container">
-          <Editor
-            value={code}
-            onValueChange={setCode}
-            highlight={(code) =>
-              Prism.highlight(code, Prism.languages.javascript, "javascript")
-            }
-            padding={20}
-            style={{
-              fontFamily: '"Fira Code", monospace',
-              fontSize: 16,
-              backgroundColor: "#0c0c0c",
-              color: "white",
-              outline: "none"
-            }}
-          />
-        </div>
-
-        <button
-          className={`review ${loading ? "active" : ""}`}
-          onClick={reviewCode}
-          disabled={loading}
-        >
-          {loading ? "Reviewing..." : "Review"}
-        </button>
+      <div className="top">
+        <h2>Code Submission</h2>
+        <p>Write your code and click Review.</p>
       </div>
 
-      {/* RIGHT SIDE */}
-      <div className="right">
-        <h2>AI Review</h2>
-
-        <div className="review-output">
-          <Markdown rehypePlugins={[rehypeHighlight]}>
-            {review || "Your AI review will appear here."}
-          </Markdown>
-        </div>
+      <div className="editor-container">
+        <Editor
+          value={code}
+          onValueChange={setCode}
+          highlight={(code) =>
+            Prism.highlight(code, Prism.languages.javascript, "javascript")
+          }
+          padding={20}
+          style={{
+            fontFamily: '"Fira Code", monospace',
+            fontSize: 15,
+            minHeight: "100%",
+            backgroundColor: "#0c0c0c",
+            color: "white",
+            outline: "none"
+          }}
+        />
       </div>
-    </main>
-  );
+
+      <button
+        className={`review ${loading ? "active" : ""}`}
+        onClick={reviewCode}
+        disabled={loading}
+      >
+        {loading ? "Reviewing..." : "Review Code"}
+      </button>
+
+    </div>
+
+
+    {/* RIGHT SIDE */}
+    <div className="right">
+
+      <h2>AI Review</h2>
+
+      <div className="review-output">
+        <Markdown rehypePlugins={[rehypeHighlight]}>
+          {review || "Your AI review will appear here."}
+        </Markdown>
+      </div>
+
+    </div>
+
+  </main>
+);
 }
 
 export default App;
