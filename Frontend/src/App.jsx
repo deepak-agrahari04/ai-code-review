@@ -22,10 +22,8 @@ function App() {
     try {
       setLoading(true);
 
-      const response = await axios.post(
-  `${import.meta.env.VITE_API_URL}/ai/get-review`,
-  { code }
-);
+      const baseUrl = import.meta.env.VITE_API_URL || window.location.origin;
+      const response = await axios.post(`${baseUrl}/ai/get-review`, { code });
 
       setReview(response.data);
     } catch (error) {

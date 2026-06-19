@@ -56,7 +56,22 @@ Rules:
 }
   });
 
-  return response.text || "No response generated.";
+  // Robustly extract text from different possible response shapes
+  if (!response) return "No response generated.";
+  if (typeof response === 'string') return response;
+  if (response.text) return response.text;
+  if (response.output && response.output[0] && response.output[0].content && response.output[0].content[0] && response.output[0].content[0].text) {
+    return response.output[0].content[0].text;
+  }
+  if (response.candidates && response.candidates[0] && response.candidates[0].content && response.candidates[0].content[0] && response.candidates[0].content[0].text) {
+    return response.candidates[0].content[0].text;
+  }
+
+  try {
+    return JSON.stringify(response);
+  } catch (e) {
+    return 'No response generated.';
+  }
 }
 
 module.exports = generateContent;
